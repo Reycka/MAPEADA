@@ -24,7 +24,10 @@ namespace Game
         /// </summary>
         public Player()
         {
-
+            row = 0; //Fila inicial del jugadr 
+            col = 0; // Columna inicial del jugador
+            bag = new Lista(); //Creamos el inventario
+            numCollectedItems = 0; //Igualamos el valor del total del inventario a 0
         }
 
         /// <summary>
@@ -34,9 +37,28 @@ namespace Game
         /// <returns><c>true</c>, if the player can move, <c>false</c> otherwise.</returns>
         /// <param name="aBoard">The board where the player is moving</param>
         /// <param name="dir">Movement direction</param>
-        public bool CanMoveInDirection(Board aBoard, Direction dir)
+        public bool CanMoveInDirection(Board aBoard, Direction dir) 
         {
-
+            int newRow = row; //Valor donde se va a almacenar la nueva posición de las filas
+            int newCol = col; //Valor donde se va a almacenar la nueva posición de las columnas
+            //Se calcula la nueva posición
+            if (dir == Direction.North) //Si va hacia arriba
+            {
+                newCol++;
+            }
+            else if (dir == Direction.South) //Si va hacia abajo
+            {
+                newCol--;
+            }
+            else if(dir == Direction.East) //Si va hacia la derecha
+            {
+                newRow++;
+            }
+            else if(dir == Direction.West) //Si va hacia la izquierda
+            {
+                newRow--; 
+            }
+            return aBoard.IsWallAt(newRow, newCol);
         }
 
         /// <summary>
@@ -49,7 +71,27 @@ namespace Game
         /// <param name="dir">Movement direction</param>
         public bool Move(Board aBoard, Direction dir)
         {
-
+            while (CanMoveInDirection(aBoard, dir))
+            {
+                if (dir == Direction.North) //Si va hacia arriba
+                {
+                    col++;
+                }
+                else if (dir == Direction.South) //Si va hacia abajo
+                {
+                    col--;
+                }
+                else if (dir == Direction.East) //Si va hacia la derecha
+                {
+                    row++;
+                }
+                else if (dir == Direction.West) //Si va hacia la izquierda
+                {
+                    row--;
+                }
+                return true;
+            }         
+                return false;
         }
 
         /// <summary>
@@ -60,7 +102,7 @@ namespace Game
         /// <param name="aBoard">The board where the player is moving</param>
         public bool PickItem (Board aBoard)
         {
-
+           
         }
 
         /// <summary>
@@ -80,7 +122,7 @@ namespace Game
         /// <param name="aBoard">The board where the player is moving.</param>
         public bool GoalReached(Board aBoard)
         {
-
+           return aBoard.IsGoalAt(row, col);
         }      
     }
 }
