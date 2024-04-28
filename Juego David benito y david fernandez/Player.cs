@@ -71,7 +71,7 @@ namespace Game
         /// <param name="dir">Movement direction</param>
         public bool Move(Board aBoard, Direction dir)
         {
-            while (CanMoveInDirection(aBoard, dir))
+            while (!CanMoveInDirection(aBoard, dir))
             {
                 if (dir == Direction.North) //Si va hacia arriba
                 {
@@ -113,7 +113,6 @@ namespace Game
                 return false; 
             }
         }
-
         /// <summary>
         /// Returns the total value of the items stored in player's bag
         /// </summary>
