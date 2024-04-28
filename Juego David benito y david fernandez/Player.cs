@@ -102,7 +102,16 @@ namespace Game
         /// <param name="aBoard">The board where the player is moving</param>
         public bool PickItem (Board aBoard)
         {
-           
+            if (aBoard.ContainsItem(row,col))
+            {
+                bag.InsertaFin(aBoard.PickItem(row,col));
+                numCollectedItems++;
+                return true;
+            }
+            else 
+            { 
+                return false; 
+            }
         }
 
         /// <summary>
@@ -112,7 +121,12 @@ namespace Game
         /// <param name="aBoard">The board where the player is moving.</param>
         public int InventoryValue(Board aBoard)
         {
-
+            int total = 0;
+            for (int i = 0; i < numCollectedItems; i++)
+            {
+                total += bag.N_esimo(i);
+            }
+            return total;
         }
 
         /// <summary>
