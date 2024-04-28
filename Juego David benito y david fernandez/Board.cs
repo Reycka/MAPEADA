@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.Design;
 using Listas;
 namespace Game
 {
@@ -48,7 +49,17 @@ namespace Game
         /// <param name="maxItems">Max number of items contained in the board.</param>
         public Board(int r, int c, string textMap, int maxItems)
         {
-
+            map = new char[r, c];
+            int puntero = 0;
+            for (int i = 0; i < r; i++)
+            {
+                for (int j = 0; j < c; j++)
+                {
+                    map[i, j] = textMap[puntero];
+                    puntero++;
+                }
+            }
+            itemsInBoard = new Item[maxItems];
         }
 
         /// <summary>
@@ -60,7 +71,7 @@ namespace Game
         /// <param name="c">column</param>
         public bool IsWallAt(int r, int c)
         {
-
+            return map[r, c] == 'w';
         }
 
         /// <summary>
@@ -71,7 +82,7 @@ namespace Game
         /// <param name="c">column</param>
         public bool ContainsItem(int r, int c)
         {
-
+            return map[r, c] =='i';
         }
 
         /// <summary>
@@ -85,7 +96,16 @@ namespace Game
         /// <param name="value">Item value</param>
         public bool AddItem(int r, int c, int value)
         {
-
+            if (numItemsInBoard == itemsInBoard.Length && !ContainsItem(r, c))
+            {
+                numItemsInBoard++;
+                itemsInBoard[numItemsInBoard].row = r;
+                itemsInBoard[numItemsInBoard].col = c;
+                itemsInBoard[numItemsInBoard].value = value;
+                return true;
+            }
+            else if (ContainsItem(r, c)) { return false; }
+            else throw new Exception("EL array esta lleno");  
         }
 
 
@@ -100,7 +120,25 @@ namespace Game
         /// <param name="c">Column</param>
         public int PickItem(int r, int c)
         {
-
+            if (ContainsItem(r, c))
+            {
+                int i = 0;
+              
+                while( i < numItemsInBoard)
+                {
+                    if (itemsInBoard[i].row == r && itemsInBoard[i].col == c)
+                    {
+                        return itemsInBoard[i].value;
+                        
+                    }
+                    i++;
+                }
+                return -1;
+            }
+            else
+            {
+                return -1;
+            }
         }
 
 
@@ -112,7 +150,7 @@ namespace Game
         /// <param name="col">Column</param>
         public bool IsGoalAt(int row, int col)
         {
-
+            return map[row, col] == 'g';
         }
 
         /// <summary>
@@ -122,7 +160,11 @@ namespace Game
         /// <param name="i">The index in the itemsInBoard array</param>
         public Item GetItem(int i)
         {
-
+            if (i< numItemsInBoard)
+            {
+                return itemsInBoard[i];
+            }
+            else throw new Exception("Null renfe exeption in path/Middle_distance/Extremadura");
         }
 
     }
