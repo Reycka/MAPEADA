@@ -71,7 +71,11 @@ namespace Game
         /// <param name="c">column</param>
         public bool IsWallAt(int r, int c)
         {
-            return map[r, c] == 'w';
+            if(r >= 0 && r < map.GetLength(0) && c >= 0 && c < map.GetLength(1))
+            {
+                return map[r, c] == 'w';
+            }
+                return false;
         }
 
         /// <summary>
@@ -82,7 +86,11 @@ namespace Game
         /// <param name="c">column</param>
         public bool ContainsItem(int r, int c)
         {
-            return map[r, c] =='i';
+            if (r >= 0 && r < map.GetLength(0) && c >= 0 && c < map.GetLength(1))
+            {
+                return map[r, c] == 'i';
+            }
+            return false;
         }
 
         /// <summary>
@@ -96,7 +104,12 @@ namespace Game
         /// <param name="value">Item value</param>
         public bool AddItem(int r, int c, int value)
         {
-            if (numItemsInBoard == itemsInBoard.Length && !ContainsItem(r, c))
+            bool dentro = false;
+            for (int i = 0; i < itemsInBoard.Length; i++)
+            {
+                if (itemsInBoard[i].col == c && itemsInBoard[i].row == r) dentro = true;
+            }
+            if (!dentro && numItemsInBoard < itemsInBoard.Length && ContainsItem(r, c))
             {
                 numItemsInBoard++;
                 itemsInBoard[numItemsInBoard].row = r;
@@ -104,7 +117,7 @@ namespace Game
                 itemsInBoard[numItemsInBoard].value = value;
                 return true;
             }
-            else if (ContainsItem(r, c)) { return false; }
+            else if (!ContainsItem(r, c)) { return false; }
             else throw new Exception("EL array esta lleno");  
         }
 
