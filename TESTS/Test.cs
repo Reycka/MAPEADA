@@ -156,9 +156,9 @@ namespace TESTS
             //Arrange
             Board board = new Board(3, 3, "i0i" + "0w0" + "000", 1);
             //Act
-            board.AddItem(0, 2, 69);
+            board.AddItem(0, 0, 69);
             //Assert
-            //Assert.Catch("mondongo");
+            Assert.That(() => board.AddItem(0,2,69), Throws.Exception, "hay excepción");
         }
     }
 }
