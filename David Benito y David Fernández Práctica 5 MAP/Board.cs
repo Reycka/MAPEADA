@@ -105,9 +105,14 @@ namespace Game
         public bool AddItem(int r, int c, int value)
         {
             bool dentro = false;
-            for (int i = 0; i < itemsInBoard.Length; i++)
+            int index = 0;
+            while(index < itemsInBoard.Length && !dentro)
             {
-                if (itemsInBoard[i].col == c && itemsInBoard[i].row == r) dentro = true;
+                if (itemsInBoard[index].col == c && itemsInBoard[index].row == r) 
+                {
+                    dentro = true;
+                } 
+                index++;
             }
             if (!dentro && numItemsInBoard < itemsInBoard.Length && ContainsItem(r, c))
             {
@@ -117,7 +122,7 @@ namespace Game
                 itemsInBoard[numItemsInBoard].value = value;
                 return true;
             }
-            else if (!ContainsItem(r, c)) { return false; }
+            else if (!ContainsItem(r, c) || dentro) { return false; }
             else throw new Exception("EL array esta lleno");  
         }
 
@@ -161,9 +166,13 @@ namespace Game
         /// <returns><c>true</c> if the position is a goal, <c>false</c> otherwise</returns>
         /// <param name="row">Row</param>
         /// <param name="col">Column</param>
-        public bool IsGoalAt(int row, int col)
+        public bool IsGoalAt(int r, int c)
         {
-            return map[row, col] == 'g';
+            if (r >= 0 && r < map.GetLength(0) && c >= 0 && c < map.GetLength(1))
+            {
+                return map[r, c] == 'g';
+            }
+            return false;
         }
 
         /// <summary>

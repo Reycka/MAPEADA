@@ -48,7 +48,38 @@ namespace TESTS
             //Assert
             ClassicAssert.IsFalse(isWall, "No hay muro");
         }
-       [Test]
+        [Test]
+        public void IsGoalAtOutofLimits()
+        {
+            //Arrange
+            Board board = new Board(3, 3, "00g" + "0w0" + "000", 3);
+            //Act
+            bool isGoal = board.IsGoalAt(-1, 1);
+            //Assert
+            ClassicAssert.IsFalse(isGoal, "Fuera de rango");
+        }
+
+        [Test]
+        public void IsGoal()
+        {
+            //Arrange
+            Board board = new Board(3, 3, "00g" + "0w0" + "000", 3);
+            //Act
+            bool isGoal = board.IsGoalAt(0, 2);
+            //Assert
+            ClassicAssert.IsTrue(isGoal, "Hay goal");
+        }
+        [Test]
+        public void IsntGoal()
+        {
+            //Arrange
+            Board board = new Board(3, 3, "00g" + "0w0" + "000", 3);
+            //Act
+            bool isGoal = board.IsGoalAt(0, 0);
+            //Assert
+            ClassicAssert.IsFalse(isGoal, "No hay goal");
+        }
+        [Test]
         public void IsItemAtOutOfRange()
         {
             //Arrange
@@ -118,6 +149,16 @@ namespace TESTS
             bool add = board.AddItem(0, 2, 69);
             //Assert
             ClassicAssert.IsFalse(add, "Ya hay un item");
+        }
+        [Test]
+        public void TryAddIteminfullarray()
+        {
+            //Arrange
+            Board board = new Board(3, 3, "i0i" + "0w0" + "000", 1);
+            //Act
+            board.AddItem(0, 2, 69);
+            //Assert
+            //Assert.Catch("mondongo");
         }
     }
 }
