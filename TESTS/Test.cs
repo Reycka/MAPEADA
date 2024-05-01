@@ -259,20 +259,38 @@ namespace TESTS
         [Test]
         public void SePuedeMover()
         {
+            Board board = new Board(3, 3, "i00" + "0w0" + "00g", 1);
+            Direction direction = new Direction();
+            direction = Direction.North;
+            Player player = new Player();
+            ClassicAssert.IsFalse(player.CanMoveInDirection(board, direction), "Error: No debería haber muro");
+        }
+        [Test]
+        public void NoSePuedeMover()
+        {
             Board board = new Board(3, 3, "0w0" + "0w0" + "00g", 1);
             Direction direction = new Direction();
             direction = Direction.North;
             Player player = new Player();
-            ClassicAssert.IsTrue(player.CanMoveInDirection(board, direction), "Error: No debería haber muro");
+            ClassicAssert.IsTrue(player.CanMoveInDirection(board, direction), "Error: Debería haber muro");
         }
         [Test]
-        public void NoSePuedeMover()
+        public void NoSeHaMovido()
+        {
+            Board board = new Board(3, 3, "0w0" + "0w0" + "00g", 1);
+            Direction direction = new Direction();
+            direction = Direction.North;
+            Player player = new Player();
+            ClassicAssert.IsFalse(player.Move(board, direction), "Error: Se debería de mover");
+        }
+        [Test]
+        public void SeHaMovido()
         {
             Board board = new Board(3, 3, "i00" + "0w0" + "00g", 1);
             Direction direction = new Direction();
             direction = Direction.North;
             Player player = new Player();
-            ClassicAssert.IsFalse(player.CanMoveInDirection(board, direction), "Error: Debería haber muro");
+            ClassicAssert.IsTrue(player.Move(board, direction), "Error: No Se debería de mover");
         }
     }
 }
