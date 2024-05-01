@@ -108,7 +108,7 @@ namespace Game
             int index = 0;
             while(index < itemsInBoard.Length && !dentro)
             {
-                if (itemsInBoard[index].col == c && itemsInBoard[index].row == r) 
+                if (itemsInBoard[index].col == c && itemsInBoard[index].row == r&& itemsInBoard[index].value == value) 
                 {
                     dentro = true;
                 } 

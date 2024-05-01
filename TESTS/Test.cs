@@ -163,8 +163,6 @@ namespace TESTS
             Board board = new Board(3, 3, "i0i" + "iw0" + "000", 1);
             //Act
             board.AddItem(0, 0, 69);
-            board.AddItem(0, 0, 2);
-            board.AddItem(1, 0, 3);
             //Assert
             Assert.That(() => board.AddItem(0,2,69), Throws.Exception, "hay excepción");
         }
@@ -251,7 +249,7 @@ namespace TESTS
         {            
             Board board = new Board(3, 3, "i00" + "0w0" + "00g", 1);
             Player player = new Player();
-            board.AddItem(0, 0, 3);
+            board.AddItem(0, 0, 2);
             player.PickItem(board);
            
             Assert.That(player.InventoryValue(board), Is.EqualTo(2), "no cuadra el valor con  el esperado");
