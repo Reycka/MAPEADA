@@ -12,12 +12,12 @@ using NUnit.Framework.Legacy;
 namespace TESTS
 {
     [TestFixture]
-    public class Test
+    public class TestBoard
     {
         /// <summary>
         /// TESTS DEL TABLERO
         /// </summary>
-        [Test]
+       // [Test]
        /* public void board()
         {
             
@@ -211,6 +211,54 @@ namespace TESTS
 
             Assert.That(() => board.GetItem(0), Throws.Exception, "hay excepción");
         }
+       
+    }
+    [TestFixture]
+    public class Testplayer
+    {
+        [Test]
+        public void GoalReached() 
+        {
+            Board board = new Board(3, 3, "g0i" + "0w0" + "000", 1);
+            Player player = new Player();
+            ClassicAssert.IsTrue(player.GoalReached(board), "Esta en la meta");
+        }
+        [Test]
+        public void GoalntReached()
+        {
+            Board board = new Board(3, 3, "00i" + "0w0" + "00g", 1);
+            Player player = new Player();
+            ClassicAssert.IsFalse(player.GoalReached(board), "No esta en la meta");
+        }
+        [Test]
+        public void PickItem()
+        {
+            Board board = new Board(3, 3, "i0i" + "0w0" + "00g", 1);
+            Player player = new Player();
+            board.AddItem(0,0,2);
+            ClassicAssert.IsTrue(player.PickItem(board), "has cogido el item");
+        }
+        [Test]
+        public void PickntItem()
+        {
+            Board board = new Board(3, 3, "00i" + "0w0" + "00g", 1);
+            Player player = new Player();
+            ClassicAssert.IsFalse(player.PickItem(board), "no has cogido el item");
+        }
+        [Test]
+        public void InventoryValue()
+        {
+            
+            Board board = new Board(3, 3, "i00" + "0w0" + "00g", 1);
+            Player player = new Player();
+            board.AddItem(0, 0, 3);
+            player.PickItem(board);
+           
+            Assert.That(player.InventoryValue(board), Is.EqualTo(2), "no cuadra el valor con  el esperado");
+        }
+        
+
+
 
     }
 }

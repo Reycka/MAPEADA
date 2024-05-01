@@ -104,8 +104,9 @@ namespace Game
         {
             if (aBoard.ContainsItem(row,col))
             {
-                bag.InsertaFin(aBoard.PickItem(row,col));
                 numCollectedItems++;
+                bag.InsertaIni(aBoard.PickItem(row,col));
+                
                 return true;
             }
             else 
@@ -121,7 +122,7 @@ namespace Game
         public int InventoryValue(Board aBoard)
         {
             int total = 0;
-            for (int i = 0; i < numCollectedItems; i++)
+            for (int i = 0;i< bag.nElems; i++)
             {
                 total += bag.N_esimo(i);
             }
