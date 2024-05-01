@@ -48,7 +48,7 @@ namespace Game
         /// <param name="textMap">String of size r*c that represents the map (walls, goals and empty spaces)</param>
         /// <param name="maxItems">Max number of items contained in the board.</param>
         public Board(int r, int c, string textMap, int maxItems)
-        {
+        {   ROWS = r; COLS = c;
             map = new char[r, c];
             int puntero = 0;
             for (int i = 0; i < r; i++)
@@ -116,10 +116,11 @@ namespace Game
             }
             if (!dentro && numItemsInBoard < itemsInBoard.Length && ContainsItem(r, c))
             {
-                numItemsInBoard++;
+               
                 itemsInBoard[numItemsInBoard].row = r;
                 itemsInBoard[numItemsInBoard].col = c;
                 itemsInBoard[numItemsInBoard].value = value;
+                numItemsInBoard++;
                 return true;
             }
             else if (!ContainsItem(r, c) || dentro) { return false; }
@@ -138,24 +139,26 @@ namespace Game
         /// <param name="c">Column</param>
         public int PickItem(int r, int c)
         {
+            int resultado = -1;
             if (ContainsItem(r, c))
             {
                 int i = 0;
+
               
-                while( i < numItemsInBoard)
+                while( i < itemsInBoard.Length)
                 {
                     if (itemsInBoard[i].row == r && itemsInBoard[i].col == c)
                     {
-                        return itemsInBoard[i].value;
+                        resultado = itemsInBoard[i].value;
                         
                     }
                     i++;
                 }
-                return -1;
+                return resultado;
             }
             else
             {
-                return -1;
+                return resultado;
             }
         }
 

@@ -18,6 +18,12 @@ namespace TESTS
         /// TESTS DEL TABLERO
         /// </summary>
         [Test]
+       /* public void board()
+        {
+            
+        }*/
+
+        [Test]
         public void IsWallAtOutofLimits ()
         {
             //Arrange
@@ -154,11 +160,57 @@ namespace TESTS
         public void TryAddIteminfullarray()
         {
             //Arrange
-            Board board = new Board(3, 3, "i0i" + "0w0" + "000", 1);
+            Board board = new Board(3, 3, "i0i" + "iw0" + "000", 1);
             //Act
             board.AddItem(0, 0, 69);
+            board.AddItem(0, 0, 2);
+            board.AddItem(1, 0, 3);
             //Assert
             Assert.That(() => board.AddItem(0,2,69), Throws.Exception, "hay excepción");
         }
+        [Test]
+        public void PickItem()
+        {
+            //Arrange
+            Board board = new Board(3, 3, "00i" + "0w0" + "000", 1);
+            board.AddItem(0, 2, 69);
+            //Act
+            int e = board.PickItem(0,2);
+            //Assert
+            Assert.That(e , Is.EqualTo(69) , "el valor del pickItem no es el mismo que el del item") ;
+
+        }
+        [Test]
+        public void PickntItem()
+        {
+            //Arrange
+            Board board = new Board(3, 3, "000" + "0w0" + "000", 1);
+            
+            //Act
+            int e = board.PickItem(0, 2);
+            //Assert
+            Assert.That(e, Is.EqualTo(-1), "el valor del pickItem no es -1 por lo que esta pillando valor");
+
+        }
+        [Test]
+        public void GetItem()
+        {
+            Board board = new Board(3, 3, "00i" + "0w0" + "000", 1);
+            Item item = new Item();
+            item.row = 0;
+            item.col = 2;
+            item.value = 2;
+            board.AddItem(0, 2, 2);
+            Assert.That(item, Is.EqualTo(board.GetItem(0)), "no se pudo coger un item existente");
+        }
+        [Test]
+        public void GetntItem()
+        {
+            Board board = new Board(3, 3, "00i" + "0w0" + "000", 1);
+
+
+            Assert.That(() => board.GetItem(0), Throws.Exception, "hay excepción");
+        }
+
     }
 }
