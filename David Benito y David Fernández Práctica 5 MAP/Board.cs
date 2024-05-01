@@ -142,15 +142,12 @@ namespace Game
             int resultado = -1;
             if (ContainsItem(r, c))
             {
-                int i = 0;
-
-              
+                int i = 0;             
                 while( i < itemsInBoard.Length)
                 {
                     if (itemsInBoard[i].row == r && itemsInBoard[i].col == c)
                     {
-                        resultado = itemsInBoard[i].value;
-                        
+                        resultado = itemsInBoard[i].value;                        
                     }
                     i++;
                 }

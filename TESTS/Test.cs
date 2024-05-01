@@ -17,8 +17,8 @@ namespace TESTS
         /// <summary>
         /// TESTS DEL TABLERO
         /// </summary>
-       // [Test]
-       /* public void board()
+       /* [Test]
+        public void board()
         {
             
         }*/
@@ -214,6 +214,7 @@ namespace TESTS
        
     }
     [TestFixture]
+    ///TESTS DE LA CLASE PLAYER
     public class Testplayer
     {
         [Test]
@@ -247,8 +248,7 @@ namespace TESTS
         }
         [Test]
         public void InventoryValue()
-        {
-            
+        {            
             Board board = new Board(3, 3, "i00" + "0w0" + "00g", 1);
             Player player = new Player();
             board.AddItem(0, 0, 3);
@@ -256,9 +256,23 @@ namespace TESTS
            
             Assert.That(player.InventoryValue(board), Is.EqualTo(2), "no cuadra el valor con  el esperado");
         }
-        
-
-
-
+        [Test]
+        public void SePuedeMover()
+        {
+            Board board = new Board(3, 3, "0w0" + "0w0" + "00g", 1);
+            Direction direction = new Direction();
+            direction = Direction.North;
+            Player player = new Player();
+            ClassicAssert.IsTrue(player.CanMoveInDirection(board, direction), "Error: No debería haber muro");
+        }
+        [Test]
+        public void NoSePuedeMover()
+        {
+            Board board = new Board(3, 3, "i00" + "0w0" + "00g", 1);
+            Direction direction = new Direction();
+            direction = Direction.North;
+            Player player = new Player();
+            ClassicAssert.IsFalse(player.CanMoveInDirection(board, direction), "Error: Debería haber muro");
+        }
     }
 }
